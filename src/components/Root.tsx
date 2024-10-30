@@ -1,34 +1,22 @@
-import { TonConnectUIProvider } from '@tonconnect/ui-react';
-
-import { App } from '@/components/App.tsx';
-import { ErrorBoundary } from '@/components/ErrorBoundary.tsx';
-import { publicUrl } from '@/helpers/publicUrl.ts';
-
-function ErrorBoundaryError({ error }: { error: unknown }) {
-  return (
-    <div>
-      <p>An unhandled error occurred:</p>
-      <blockquote>
-        <code>
-          {error instanceof Error
-            ? error.message
-            : typeof error === 'string'
-              ? error
-              : JSON.stringify(error)}
-        </code>
-      </blockquote>
-    </div>
-  );
-}
+import { PrivyProvider } from "@privy-io/react-auth";
+import { App } from "@/components/App.tsx";
 
 export function Root() {
   return (
-    <ErrorBoundary fallback={ErrorBoundaryError}>
-      <TonConnectUIProvider
-        manifestUrl={publicUrl('tonconnect-manifest.json')}
-      >
-        <App/>
-      </TonConnectUIProvider>
-    </ErrorBoundary>
+    <PrivyProvider
+      appId={import.meta.env.VITE_PRIVY_APP_ID}
+      config={{
+        loginMethods: ["telegram"],
+        appearance: {
+          theme: "light",
+          accentColor: "#0088cc", // Telegram's brand color
+        },
+        embeddedWallets: {
+          createOnLogin: "users-without-wallets",
+        },
+      }}
+    >
+      <App />
+    </PrivyProvider>
   );
 }
