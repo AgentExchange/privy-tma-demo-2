@@ -9,7 +9,7 @@ export function Root() {
         loginMethods: ["telegram"],
         appearance: {
           theme: "light",
-          accentColor: "#0088cc", // Telegram's brand color
+          accentColor: "#20B2AA", // Our accent color
         },
         embeddedWallets: {
           createOnLogin: "users-without-wallets",

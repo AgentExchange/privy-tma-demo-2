@@ -1,3 +1,4 @@
+import path from "path";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import react from "@vitejs/plugin-react-swc";
@@ -22,5 +23,10 @@ export default defineConfig({
     port: 5173,
     // Exposes your dev server and makes it accessible for the devices in the same network.
     host: true,
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
   },
 });
